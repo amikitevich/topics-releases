@@ -32,8 +32,20 @@ You do not need Bun, Node, a source checkout or administrator access.
    tcs --version
    ```
 
-To update, run the same installer again. Then restart `tcs web`.
-The installer does not change your topics.
+## Update Topics
+
+From version 0.3.0, update with one command:
+
+```sh
+tcs self-update          # The latest release
+tcs self-update v0.3.0   # A specific release
+```
+
+The command downloads this repository's installer and runs it. The installer verifies the download before it switches versions.
+For version 0.2.0 or earlier, run the installer from [Install Topics](#install-topics) again.
+
+After an update, restart `tcs web`. Run `tcs skill install` again to update the agent skill.
+An update does not change your topics or your saved settings.
 
 To install a specific version, download the installer from that [release](https://github.com/amikitevich/topics-releases/releases) and add `--version vMAJOR.MINOR.PATCH`.
 macOS programs are unsigned. macOS can ask you to approve them.
