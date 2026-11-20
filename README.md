@@ -10,27 +10,30 @@ This repository contains release downloads and the agent skill. Source code is m
 Topics supports macOS Apple Silicon and Linux x64 with glibc. Windows is not supported.
 You do not need Bun, Node, a source checkout or administrator access.
 
-1. Download the installer:
+To review the script before you run it, [download the installer](https://github.com/amikitevich/topics-releases/releases/latest/download/install.sh).
 
-   ```sh
-   curl --proto '=https' --tlsv1.2 -fsSL \
-     https://github.com/amikitevich/topics-releases/releases/latest/download/install.sh \
-     -o install-topics.sh
-   ```
+Paste this entire block into your terminal. It downloads and runs the installer:
 
-2. Inspect `install-topics.sh` before you run it.
-3. Run the installer:
+```sh
+sh -c '
+  installer=$(mktemp "${TMPDIR:-/tmp}/topics-install.XXXXXX") || exit 1
+  cleanup() { rm -f -- "$installer"; }
+  trap cleanup EXIT
+  curl --proto "=https" --tlsv1.2 --fail --show-error --location --progress-bar \
+    https://github.com/amikitevich/topics-releases/releases/latest/download/install.sh \
+    --output "$installer" &&
+  printf "%s\n" "Installing Topics. The release download can take a few minutes." &&
+  sh "$installer"
+'
+```
 
-   ```sh
-   sh install-topics.sh
-   ```
+Wait for the `Installed Topics` message. Then check the version:
 
-4. Make sure that `~/.local/bin` is in your shell `PATH`.
-5. Check the installation:
+```sh
+"$HOME/.local/bin/tcs" --version
+```
 
-   ```sh
-   tcs --version
-   ```
+Add `~/.local/bin` to your shell `PATH` if `tcs` is not found without the full path.
 
 ## Update Topics
 
